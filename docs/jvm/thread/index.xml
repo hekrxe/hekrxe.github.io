@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Introduction on 冰与火</title>
-    <link>https://hekrxe.github.io/</link>
-    <description>Recent content in Introduction on 冰与火</description>
+    <title>冰与火</title>
+    <link>https://hekrxe.github.io/docs/jvm/thread/</link>
+    <description>Recent content on 冰与火</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 05 May 2020 17:10:51 +0800</lastBuildDate>
     
-	<atom:link href="https://hekrxe.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://hekrxe.github.io/docs/jvm/thread/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -27,15 +26,6 @@
       
       <guid>https://hekrxe.github.io/docs/jvm/thread/with-toc/</guid>
       <description>Caput vino delphine in tamen vias Cognita laeva illo fracta Natus quaerere Limitibus misere sit Enim sua Germana aves pignus tecta </description>
-    </item>
-    
-    <item>
-      <title>Wangfugui</title>
-      <link>https://hekrxe.github.io/posts/wangfugui/</link>
-      <pubDate>Tue, 05 May 2020 17:10:51 +0800</pubDate>
-      
-      <guid>https://hekrxe.github.io/posts/wangfugui/</guid>
-      <description>难得的一次抓拍合影， 第一次献给王富贵。</description>
     </item>
     
   </channel>

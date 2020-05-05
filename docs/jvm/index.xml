@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>JVM on 冰与火</title>
+    <link>https://hekrxe.github.io/docs/jvm/</link>
+    <description>Recent content in JVM on 冰与火</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    
+	<atom:link href="https://hekrxe.github.io/docs/jvm/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+  </channel>
+</rss>
