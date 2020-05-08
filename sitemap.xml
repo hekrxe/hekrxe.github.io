@@ -7,6 +7,10 @@
   </url>
   
   <url>
+    <loc>https://hekrxe.github.io/docs/jvm/parameter/</loc>
+  </url>
+  
+  <url>
     <loc>https://hekrxe.github.io/docs/jvm/thread/without-toc/</loc>
   </url>
   
@@ -16,6 +20,18 @@
   
   <url>
     <loc>https://hekrxe.github.io/docs/jvm/thread/with-toc/</loc>
+  </url>
+  
+  <url>
+    <loc>https://hekrxe.github.io/docs/jvm/heap/allocation/</loc>
+  </url>
+  
+  <url>
+    <loc>https://hekrxe.github.io/docs/jvm/gc/</loc>
+  </url>
+  
+  <url>
+    <loc>https://hekrxe.github.io/docs/jvm/heap/</loc>
   </url>
   
   <url>
