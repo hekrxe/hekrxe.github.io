@@ -4,17 +4,17 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="对象对内分配 对象所需内存大小在类加载完成后便可完全确定，为对象分配空间的任务实际上便等同于把一块确定大小的内存从Java堆中划分出来。 分配方">
-<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="对象对内分配" />
-<meta property="og:description" content="对象对内分配 对象所需内存大小在类加载完成后便可完全确定，为对象分配空间的任务实际上便等同于把一块确定大小的内存从Java堆中划分出来。 分配方" />
+<meta name="description" content="对象堆内存分配 对象所需内存大小在类加载完成后便可完全确定，为对象分配空间的任务实际上便等同于把一块确定大小的内存从Java堆中划分出来。 分配">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="对象堆内存分配" />
+<meta property="og:description" content="对象堆内存分配 对象所需内存大小在类加载完成后便可完全确定，为对象分配空间的任务实际上便等同于把一块确定大小的内存从Java堆中划分出来。 分配" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://hekrxe.github.io/docs/jvm/heap/allocation/" />
 
-<title>对象对内分配 | 冰与火</title>
+<title>对象堆内存分配 | 冰与火</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.6df681b0bb21155cba49f6078e3559216772d8e03e780d240c73ea21817ed5e5.css" integrity="sha256-bfaBsLshFVy6SfYHjjVZIWdy2OA&#43;eA0kDHPqIYF&#43;1eU=">
-<script defer src="/zh-cn.search.min.94f14f367747a476ce178c6b27276d9b5444192512b5d511c1571472e90c9074.js" integrity="sha256-lPFPNndHpHbOF4xrJydtm1REGSUStdURwVcUcukMkHQ="></script>
+<script defer src="/zh-cn.search.min.aa202b1cd9e804b94a98db30f5ef821c878a71c25047b4ea402db4298a5ca2f6.js" integrity="sha256-qiArHNnoBLlKmNsw9e&#43;CHIeKccJQR7TqQC20KYpcovY="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -124,7 +124,7 @@ https://github.com/alex-shpak/hugo-book
         <li>
           
   
-    <a href="/docs/jvm/heap/allocation/" class="active">对象对内分配</a>
+    <a href="/docs/jvm/heap/allocation/" class="active">对象堆内存分配</a>
   
 
         </li>
@@ -228,7 +228,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <strong>对象对内分配</strong>
+  <strong>对象堆内存分配</strong>
 
   <label for="toc-control">
     <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
@@ -242,7 +242,7 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown"><h2 id="对象对内分配">对象对内分配</h2>
+  <article class="markdown"><h2 id="对象堆内存分配">对象堆内存分配</h2>
 <p>对象所需内存大小在类加载完成后便可完全确定，为对象分配空间的任务实际上便等同于把一块确定大小的内存从Java堆中划分出来。</p>
 <hr>
 <p>分配方式：</p>
