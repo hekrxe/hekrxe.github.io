@@ -14,7 +14,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.6df681b0bb21155cba49f6078e3559216772d8e03e780d240c73ea21817ed5e5.css" integrity="sha256-bfaBsLshFVy6SfYHjjVZIWdy2OA&#43;eA0kDHPqIYF&#43;1eU=">
-<script defer src="/zh-cn.search.min.836eba760b44336122a550763fd04005a80b1c97f55b493171fec15836cd32d1.js" integrity="sha256-g266dgtEM2EipVB2P9BABagLHJf1W0kxcf7BWDbNMtE="></script>
+<script defer src="/zh-cn.search.min.970503a299db77f0835d2aab9e68bd9b4b8e3a424748b4268e194b3daf1b8585.js" integrity="sha256-lwUDopnbd/CDXSqrnmi9m0uOOkJHSLQmjhlLPa8bhYU="></script>
 <link rel="alternate" type="application/rss+xml" href="https://hekrxe.github.io/docs/jvm/gc/index.xml" title="冰与火" />
 <!--
 Made with Book Theme
@@ -234,6 +234,7 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#哪些内存需要回收">哪些内存需要回收</a></li>
       </ul>
     </li>
+    <li><a href="#分代收集理论">分代收集理论</a></li>
   </ul>
 </nav>
 
@@ -273,6 +274,40 @@ JVM通过一系列称为GC Root的根对象作为起始节点，根据引用关�
 <li>Java堆中不存在该类及其任何子类的实例；</li>
 <li>加载该类的类加载器已经卸载</li>
 <li>该类对应的<code>java.lang.Class</code>对象没有被任何地方引用（包括反射）。</li>
+</ul>
+<h2 id="分代收集理论">分代收集理论</h2>
+<blockquote>
+<ul>
+<li>弱分代假说：绝大多数对象都是朝生夕灭的</li>
+<li>强分代假说：熬过多次垃圾收集的对象就越难以消亡</li>
+</ul>
+</blockquote>
+<p>这两个假说共同奠定了多款常用的垃圾收集器一致的设计原则：
+收集器应该将Java堆划分出不同的区域，然后依据对象的年龄分配到不同的区域中存储。
+针对不同区域进行回收，以提高回收效率和内存空间的使用率。
+针对不同区域存储对象的存亡特征使用不同的收集算法：</p>
+<ul>
+<li>标记-复制</li>
+<li>标记-清除</li>
+<li>标记-整理</li>
+</ul>
+<p>分代收集理论具体放到现在商用的Java虚拟机里，设计者一般至少会把Java堆划分为：</p>
+<ul>
+<li>新生代</li>
+<li>老年代</li>
+</ul>
+<blockquote>
+<ul>
+<li>跨代引用假说：老年代和新生代会相互引用的情况占仅极少数
+依据这条假说，不再为了少量的跨代引用去扫描整个老年代，只需在新生代上建立一个全局的<code>记忆集</code>，这个记忆集将老年代划分成若干小块，标识出老年代的哪一块内存存在跨代引用，
+然后在发送MinorGC时，只有包含了跨代引用的小块内存里的对象才会被加入到GC ROOT中进行扫描。</li>
+</ul>
+</blockquote>
+<ul>
+<li>MinorGC：指目标只是新生代垃圾收集；</li>
+<li>MajorGC：指目标只是老年代的垃圾收集；目前仅有CMS会有单独的收集老年代的行为；</li>
+<li>MixedGC：指目标是收集整个新生代以及部分老年代的垃圾收集；目前只有G1有这种行为；</li>
+<li>FullGC： 收集整个Java堆和方法区的垃圾收集；</li>
 </ul>
 <hr>
 <table>
@@ -336,6 +371,7 @@ JVM通过一系列称为GC Root的根对象作为起始节点，根据引用关�
         <li><a href="#哪些内存需要回收">哪些内存需要回收</a></li>
       </ul>
     </li>
+    <li><a href="#分代收集理论">分代收集理论</a></li>
   </ul>
 </nav>
 
