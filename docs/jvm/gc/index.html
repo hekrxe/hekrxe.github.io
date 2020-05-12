@@ -14,7 +14,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.6df681b0bb21155cba49f6078e3559216772d8e03e780d240c73ea21817ed5e5.css" integrity="sha256-bfaBsLshFVy6SfYHjjVZIWdy2OA&#43;eA0kDHPqIYF&#43;1eU=">
-<script defer src="/zh-cn.search.min.970503a299db77f0835d2aab9e68bd9b4b8e3a424748b4268e194b3daf1b8585.js" integrity="sha256-lwUDopnbd/CDXSqrnmi9m0uOOkJHSLQmjhlLPa8bhYU="></script>
+<script defer src="/zh-cn.search.min.b01c3533f202ed702057fa6a683bf7c518b33602266ba7e4bb0f3da2ccdfdd94.js" integrity="sha256-sBw1M/IC7XAgV/pqaDv3xRizNgIma6fkuw89oszf3ZQ="></script>
 <link rel="alternate" type="application/rss+xml" href="https://hekrxe.github.io/docs/jvm/gc/index.xml" title="冰与火" />
 <!--
 Made with Book Theme
@@ -235,6 +235,9 @@ https://github.com/alex-shpak/hugo-book
       </ul>
     </li>
     <li><a href="#分代收集理论">分代收集理论</a></li>
+    <li><a href="#标记-清除-算法">标记-清除 算法</a></li>
+    <li><a href="#标记-复制-算法">标记-复制 算法</a></li>
+    <li><a href="#标记-整理-算法">标记-整理 算法</a></li>
   </ul>
 </nav>
 
@@ -309,6 +312,46 @@ JVM通过一系列称为GC Root的根对象作为起始节点，根据引用关�
 <li>MixedGC：指目标是收集整个新生代以及部分老年代的垃圾收集；目前只有G1有这种行为；</li>
 <li>FullGC： 收集整个Java堆和方法区的垃圾收集；</li>
 </ul>
+<h2 id="标记-清除-算法">标记-清除 算法</h2>
+<blockquote>
+<p>分为标记和清除两个阶段：首先标记出需要回收的对象，在标记完成后，统一回收对象（即可回收标记的也可回收未标记的对象，具体算法具体分析）</p>
+</blockquote>
+<p>存在的缺点：</p>
+<ul>
+<li>执行效率不稳定，假如需要回收大量对象，这时就必须进行大量的标记和清除动作；</li>
+<li>存在内存空间碎片问题，在标记清除之后会产生大量的不连续的内存碎片，碎片太多可能导致当分配大对象时无法找到足够的连续内存而不得不提前触发另一次垃圾收集。</li>
+</ul>
+<h2 id="标记-复制-算法">标记-复制 算法</h2>
+<blockquote>
+<p>算法思想： 将内存分为大小相等的两块，每次只使用其中一块；当使用的那一块使用完了，就将存活对象复制到另一块上面，然后再把已使用内存空间一次清理掉。</p>
+</blockquote>
+<p>缺点：</p>
+<ul>
+<li>如果存在大量存活对象，那么将产生大量的内存空间复制的开销。反之就是它的优点。</li>
+<li>空间浪费，只有一半的空间可被使用。</li>
+</ul>
+<p>优点：</p>
+<ul>
+<li>不存在空间碎片问题，分配内存时只需移动堆顶指针即可，实现简单、运行高效。</li>
+</ul>
+<p>一般现在商用的虚拟机优先采用这种算法来回收新生代(存活对象少，只需很小的复制开销)，只不过内存空间不是1：1的比率，
+而是将新生代划分为 8:1:1 的三块空间，名字叫，Eden:SurvivorFrom:SurvivorTo,每次只使用Eden和其中一块Survivor空间，
+当垃圾回收发生时，将Eden和SurvivorFrom中存活的对象复制到SurvivorTo上面。
+此算法的空间利用率是 90%。
+不过存在被复制到的Survivor空间不足的情况，这时就需要其它空间（一般就是老年代）来进行分配担保。</p>
+<h2 id="标记-整理-算法">标记-整理 算法</h2>
+<blockquote>
+<p>一般在老年代采用这种算法（老年代没有空间担保机制，且其对象存活率较高），其算法思想是：
+先标记出要回收的或不需要回收的对象，然后将所有存活的对象往空间一端移动，然后直接清理掉边界以外的空间。</p>
+</blockquote>
+<p>移动存活对象需要全程暂停用户应用程序才能进行。</p>
+<p>移动对象则内存回收更复杂（暂停用户程序）；
+不移动对象则内存分配更复杂(内存碎片问题)。</p>
+<p>从停顿时间来看：
+不移动对象停顿时间短甚至不需要停顿，但吞吐量将下降(存在空间碎片，只能使用空闲列表算法，所以分配内存慢)；移动对象则反之。</p>
+<p>所以，需要看你是在意吞吐量还是停顿。</p>
+<p>另外，还有一种&rsquo;混合&rsquo;方案，平时就采用 标记-清除 算法，当空间碎片化程度大到已经影响对象分配时再采用 标记-整理 算法。CMS就是这么干的。</p>
+<p>据以上，不同场景采用不同的算法就衍生出了各种垃圾回收器。</p>
 <hr>
 <table>
 <thead>
@@ -372,6 +415,9 @@ JVM通过一系列称为GC Root的根对象作为起始节点，根据引用关�
       </ul>
     </li>
     <li><a href="#分代收集理论">分代收集理论</a></li>
+    <li><a href="#标记-清除-算法">标记-清除 算法</a></li>
+    <li><a href="#标记-复制-算法">标记-复制 算法</a></li>
+    <li><a href="#标记-整理-算法">标记-整理 算法</a></li>
   </ul>
 </nav>
 

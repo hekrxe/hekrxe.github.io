@@ -3,6 +3,10 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://hekrxe.github.io/docs/java/concurrent/cas/</loc>
+  </url>
+  
+  <url>
     <loc>https://hekrxe.github.io/docs/jvm/</loc>
   </url>
   
@@ -11,11 +15,19 @@
   </url>
   
   <url>
+    <loc>https://hekrxe.github.io/docs/java/concurrent/volatile/</loc>
+  </url>
+  
+  <url>
     <loc>https://hekrxe.github.io/docs/jvm/thread/without-toc/</loc>
   </url>
   
   <url>
     <loc>https://hekrxe.github.io/docs/java/</loc>
+  </url>
+  
+  <url>
+    <loc>https://hekrxe.github.io/docs/java/concurrent/synchronized/</loc>
   </url>
   
   <url>
@@ -40,6 +52,10 @@
   
   <url>
     <loc>https://hekrxe.github.io/docs/jvm/thread/</loc>
+  </url>
+  
+  <url>
+    <loc>https://hekrxe.github.io/docs/java/concurrent/</loc>
   </url>
   
   <url>

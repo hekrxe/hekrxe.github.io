@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>并发 on 冰与火</title>
+    <link>https://hekrxe.github.io/docs/java/concurrent/</link>
+    <description>Recent content in 并发 on 冰与火</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    
+	<atom:link href="https://hekrxe.github.io/docs/java/concurrent/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>CAS</title>
+      <link>https://hekrxe.github.io/docs/java/concurrent/cas/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hekrxe.github.io/docs/java/concurrent/cas/</guid>
+      <description>CAS(Compare And Swap) 不需要OS来执行上下文切换(系统调用)，而直接原子修改内存数据 底层汇编指令： 1 2 3 // 如果是多处理器则加上 lock 指令 // 说明 cmpxchgl 不能保证原子性 IF_MP</description>
+    </item>
+    
+    <item>
+      <title>volatile</title>
+      <link>https://hekrxe.github.io/docs/java/concurrent/volatile/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hekrxe.github.io/docs/java/concurrent/volatile/</guid>
+      <description>volatile的作用 -可见性 -禁止指令重排序 如何实现可见性 写,立即写到主内存 读,每次都到主内存读，言外之意：线程不会主动去主内存读取普通变</description>
+    </item>
+    
+    <item>
+      <title>Synchronized</title>
+      <link>https://hekrxe.github.io/docs/java/concurrent/synchronized/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hekrxe.github.io/docs/java/concurrent/synchronized/</guid>
+      <description>synchronized 不能保证代码块内的指令重排序。 重量级锁 JVM对于OS来说是一个普通的进程，当JVM申请锁资源时必须通过上下文切换进入内核态(系统调用)才能</description>
+    </item>
+    
+  </channel>
+</rss>
