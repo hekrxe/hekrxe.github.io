@@ -4,13 +4,13 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="CAS(Compare And Swap) 不需要OS来执行上下文切换(系统调用)，而直接原子修改内存数据 底层汇编指令： 1 2 3 // 如果是多处理器则加上 lock 指令 // 说明 cmpxchgl 不能保证原子性 IF_MP">
-<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="CAS" />
-<meta property="og:description" content="CAS(Compare And Swap) 不需要OS来执行上下文切换(系统调用)，而直接原子修改内存数据 底层汇编指令： 1 2 3 // 如果是多处理器则加上 lock 指令 // 说明 cmpxchgl 不能保证原子性 IF_MP" />
+<meta name="description" content="基于标记复制算法的并行多线程新生代收集器。 其关注点是吞吐量，吞吐量优先收集器。 自适应调节策略是ParallelScavenge的一个特点。 -XX:MaxGCPauseMillis">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="Parallel Scavenge" />
+<meta property="og:description" content="基于标记复制算法的并行多线程新生代收集器。 其关注点是吞吐量，吞吐量优先收集器。 自适应调节策略是ParallelScavenge的一个特点。 -XX:MaxGCPauseMillis" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://hekrxe.github.io/docs/java/concurrent/cas/" />
+<meta property="og:url" content="https://hekrxe.github.io/docs/jvm/gc/parallel_scavenge/" />
 
-<title>CAS | 冰与火</title>
+<title>Parallel Scavenge | 冰与火</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.6df681b0bb21155cba49f6078e3559216772d8e03e780d240c73ea21817ed5e5.css" integrity="sha256-bfaBsLshFVy6SfYHjjVZIWdy2OA&#43;eA0kDHPqIYF&#43;1eU=">
@@ -76,6 +76,145 @@ https://github.com/alex-shpak/hugo-book
   
 
   
+  <ul>
+    
+      
+        <li>
+          
+  
+    <a href="/docs/jvm/parameter/" class="">JVM相关参数</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/jvm/gc/" class="collapsed ">GC</a>
+  
+
+          
+  
+  
+  
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+    <a href="/docs/jvm/gc/serial/" class="">Serial</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/jvm/gc/par_new/" class="">ParNew</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/jvm/gc/parallel_scavenge/" class="active">Parallel Scavenge</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/jvm/gc/serial_old/" class="">Serial Old</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/jvm/gc/parallel_old/" class="">Parallel Old</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/jvm/gc/cms/" class="">CMS</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/jvm/gc/g1/" class="">G1</a>
+  
+
+        </li>
+      
+    
+  </ul>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/jvm/heap/" class="collapsed ">Heap</a>
+  
+
+          
+  
+  
+  
+
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/jvm/thread/" class="collapsed ">Thread</a>
+  
+
+          
+  
+  
+  
+
+  
+
+        </li>
+      
+    
+  </ul>
+  
 
         </li>
       
@@ -92,82 +231,6 @@ https://github.com/alex-shpak/hugo-book
   
   
 
-  
-  <ul>
-    
-      
-        <li>
-          
-  
-    <a href="/docs/java/ref/" class="">Java引用</a>
-  
-
-          
-  
-  
-  
-
-  
-  <ul>
-    
-  </ul>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-    <a href="/docs/java/concurrent/" class="collapsed ">并发</a>
-  
-
-          
-  
-  
-  
-
-  
-  <ul>
-    
-      
-        <li>
-          
-  
-    <a href="/docs/java/concurrent/cas/" class="active">CAS</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-    <a href="/docs/java/concurrent/volatile/" class="">volatile</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-    <a href="/docs/java/concurrent/synchronized/" class="">Synchronized</a>
-  
-
-        </li>
-      
-    
-  </ul>
-  
-
-        </li>
-      
-    
-  </ul>
   
 
         </li>
@@ -221,7 +284,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <strong>CAS</strong>
+  <strong>Parallel Scavenge</strong>
 
   <label for="toc-control">
     <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
@@ -235,25 +298,17 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown"><h2 id="cascompare-and-swap">CAS(Compare And Swap)</h2>
-<blockquote>
-<p>不需要OS来执行上下文切换(系统调用)，而直接原子修改内存数据</p>
-</blockquote>
-<p>底层汇编指令：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">// 如果是多处理器则加上 lock 指令
-// 说明 cmpxchgl 不能保证原子性
-IF_MP ? lock cmpxchgl : cmpxchgl; 
-</code></pre></td></tr></table>
-</div>
-</div><p><code>lock</code> 指令来保证原子性</p>
-<p>存在问题：1，ABA；2，CPU空跑</p>
+  <article class="markdown"><p>基于标记复制算法的并行多线程新生代收集器。</p>
+<p>其关注点是吞吐量，吞吐量优先收集器。</p>
+<p>自适应调节策略是ParallelScavenge的一个特点。</p>
+<ul>
+<li>-XX:MaxGCPauseMillis 控制其最大停顿时间</li>
+<li>-XX:GCTimeRation 设置吞吐量大小（0-100）,设置 垃圾收集占用的时间。</li>
+<li>-XX:UseAdaptiveSizePolicy,此参数被激活后，就不需要人工指定新生代大小、Eden与Survivor区的比率、
+晋升老年代对象大小(-XX:PretenureSizeThreshold)等参数细节，虚拟机会根据当前系统的运行状态进行性能
+监控来动态调整这些参数以提供合适的停顿时间和最大的吞吐量。</li>
+</ul>
+<p>吞吐量=us/(us+sy)</p>
 </article>
  
       

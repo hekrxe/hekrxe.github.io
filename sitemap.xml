@@ -15,6 +15,10 @@
   </url>
   
   <url>
+    <loc>https://hekrxe.github.io/docs/jvm/gc/serial/</loc>
+  </url>
+  
+  <url>
     <loc>https://hekrxe.github.io/docs/java/concurrent/volatile/</loc>
   </url>
   
@@ -27,6 +31,10 @@
   </url>
   
   <url>
+    <loc>https://hekrxe.github.io/docs/jvm/gc/par_new/</loc>
+  </url>
+  
+  <url>
     <loc>https://hekrxe.github.io/docs/java/concurrent/synchronized/</loc>
   </url>
   
@@ -36,6 +44,26 @@
   
   <url>
     <loc>https://hekrxe.github.io/docs/jvm/heap/allocation/</loc>
+  </url>
+  
+  <url>
+    <loc>https://hekrxe.github.io/docs/jvm/gc/parallel_scavenge/</loc>
+  </url>
+  
+  <url>
+    <loc>https://hekrxe.github.io/docs/jvm/gc/serial_old/</loc>
+  </url>
+  
+  <url>
+    <loc>https://hekrxe.github.io/docs/jvm/gc/parallel_old/</loc>
+  </url>
+  
+  <url>
+    <loc>https://hekrxe.github.io/docs/jvm/gc/cms/</loc>
+  </url>
+  
+  <url>
+    <loc>https://hekrxe.github.io/docs/jvm/gc/g1/</loc>
   </url>
   
   <url>

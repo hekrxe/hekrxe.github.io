@@ -30,6 +30,15 @@
     </item>
     
     <item>
+      <title>Serial</title>
+      <link>https://hekrxe.github.io/docs/jvm/gc/serial/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hekrxe.github.io/docs/jvm/gc/serial/</guid>
+      <description>新生代单线程串行收集器，使用标记复制算法； 客户端模式下默认的新生代收集器。 对于内存受限的环境，内存占用是最小的； -XX:+UseSerialGC</description>
+    </item>
+    
+    <item>
       <title>volatile</title>
       <link>https://hekrxe.github.io/docs/java/concurrent/volatile/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -45,6 +54,15 @@
       
       <guid>https://hekrxe.github.io/docs/jvm/thread/without-toc/</guid>
       <description>At me ipso nepotibus nunc celebratior genus Tanto oblite </description>
+    </item>
+    
+    <item>
+      <title>ParNew</title>
+      <link>https://hekrxe.github.io/docs/jvm/gc/par_new/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hekrxe.github.io/docs/jvm/gc/par_new/</guid>
+      <description>ParNew实质上是Serial的多线程并行版本，除了同时使用多条线程进行垃圾收集之外，其余的行为都与Serial完全一致。 JDK7之前服务</description>
     </item>
     
     <item>
@@ -72,6 +90,51 @@
       
       <guid>https://hekrxe.github.io/docs/jvm/heap/allocation/</guid>
       <description>对象堆内存分配 对象所需内存大小在类加载完成后便可完全确定，为对象分配空间的任务实际上便等同于把一块确定大小的内存从Java堆中划分出来。 分配</description>
+    </item>
+    
+    <item>
+      <title>Parallel Scavenge</title>
+      <link>https://hekrxe.github.io/docs/jvm/gc/parallel_scavenge/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hekrxe.github.io/docs/jvm/gc/parallel_scavenge/</guid>
+      <description>基于标记复制算法的并行多线程新生代收集器。 其关注点是吞吐量，吞吐量优先收集器。 自适应调节策略是ParallelScavenge的一个特点。 -XX:MaxGCPauseMillis</description>
+    </item>
+    
+    <item>
+      <title>Serial Old</title>
+      <link>https://hekrxe.github.io/docs/jvm/gc/serial_old/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hekrxe.github.io/docs/jvm/gc/serial_old/</guid>
+      <description>Serial Old是Serial的老年代版本， 单线程串行收集器，采用 标记-整理 算法。 两种用途： JDK5以前与ParallelScavenge配合使用 作</description>
+    </item>
+    
+    <item>
+      <title>Parallel Old</title>
+      <link>https://hekrxe.github.io/docs/jvm/gc/parallel_old/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hekrxe.github.io/docs/jvm/gc/parallel_old/</guid>
+      <description>Parallel Old是Parallel Scavenge的老年代版本。 支持多线程并发，基于标记整理算法。 在优先考虑吞吐量的场景可以使用 ParallelSc</description>
+    </item>
+    
+    <item>
+      <title>CMS</title>
+      <link>https://hekrxe.github.io/docs/jvm/gc/cms/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hekrxe.github.io/docs/jvm/gc/cms/</guid>
+      <description>CMS</description>
+    </item>
+    
+    <item>
+      <title>G1</title>
+      <link>https://hekrxe.github.io/docs/jvm/gc/g1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hekrxe.github.io/docs/jvm/gc/g1/</guid>
+      <description>G1是面向全堆的垃圾收集器，不再需要其他新生代收集器的配合工作。</description>
     </item>
     
     <item>
