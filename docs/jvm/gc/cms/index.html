@@ -4,9 +4,9 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="CMS">
+<meta name="description" content="CMS是一种以获取最短回收停顿时间为目标的收集器。 基于标记清除算法。 运行主要分为四步： 初始标记 - stop the world 并发标记 重新标记 - stop the world 并发清除 初始标">
 <meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="CMS" />
-<meta property="og:description" content="CMS" />
+<meta property="og:description" content="CMS是一种以获取最短回收停顿时间为目标的收集器。 基于标记清除算法。 运行主要分为四步： 初始标记 - stop the world 并发标记 重新标记 - stop the world 并发清除 初始标" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://hekrxe.github.io/docs/jvm/gc/cms/" />
 
@@ -14,7 +14,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.6df681b0bb21155cba49f6078e3559216772d8e03e780d240c73ea21817ed5e5.css" integrity="sha256-bfaBsLshFVy6SfYHjjVZIWdy2OA&#43;eA0kDHPqIYF&#43;1eU=">
-<script defer src="/zh-cn.search.min.008b3cf34ab44b2418fb3347501ebc41ed3affa40aa7eedfbbde74d723081bb1.js" integrity="sha256-AIs880q0SyQY&#43;zNHUB68Qe06/6QKp&#43;7fu9501yMIG7E="></script>
+<script defer src="/zh-cn.search.min.5316e4448de04b727385e686142323a7b6fe4543c23aa7f5d5ab6d023d113b75.js" integrity="sha256-UxbkRI3gS3JzheaGFCMjp7b&#43;RUPCOqf11attAj0RO3U="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -298,7 +298,29 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown"><p>CMS</p>
+  <article class="markdown"><p>CMS是一种以获取最短回收停顿时间为目标的收集器。
+基于标记清除算法。</p>
+<p>运行主要分为四步：</p>
+<ul>
+<li>初始标记 - stop the world</li>
+<li>并发标记</li>
+<li>重新标记 - stop the world</li>
+<li>并发清除</li>
+</ul>
+<p>初始标记，仅仅只是标记一下GC Root能直接关联到的对象，速度快。</p>
+<p>并发标记，从GCRoot的直接关联的对象开始遍历整个对象图，这个过程耗时长但不需要暂停用户线程。</p>
+<p>重新标记，则是为了修正并发标记阶段因用户线程导致标记变动的那一部分对象。</p>
+<p>并发清除，清理删除掉标记阶段判断依据死亡的对象，不需要移动对象，可与用户线程并发执行。</p>
+<p>优点：</p>
+<blockquote>
+<p>并发收集、低停顿。</p>
+</blockquote>
+<p>缺点：</p>
+<blockquote>
+<p>并发标记、并发清除过程占用线程（占用处理器时间）而降低总吞吐量。
+无法处理浮动垃圾，在并发标记、并发清除阶段，用户线程可能会产生新的垃圾（比如标记结束后产生的垃圾）；基于这个原因，CMS必须预留一部分内存给用户线程以便有足够的内存可分配给新对象。基于此，CMS在并发失败（CMS运行期间没有内存分配给新对象）的时候就不得不进行一次空间整理（此过程需暂停用户线程，采用SerialOld算法实现）。
+由于是采用标记-清除算法，意味着收集结束后会产生大量的空间碎片。导致当需要分配大对象时没有足够的空间而不得不提前触发一次FullGC.</p>
+</blockquote>
 </article>
  
       

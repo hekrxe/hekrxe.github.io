@@ -125,7 +125,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://hekrxe.github.io/docs/jvm/gc/cms/</guid>
-      <description>CMS</description>
+      <description>CMS是一种以获取最短回收停顿时间为目标的收集器。 基于标记清除算法。 运行主要分为四步： 初始标记 - stop the world 并发标记 重新标记 - stop the world 并发清除 初始标</description>
     </item>
     
     <item>
@@ -134,7 +134,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://hekrxe.github.io/docs/jvm/gc/g1/</guid>
-      <description>G1是面向全堆的垃圾收集器，不再需要其他新生代收集器的配合工作。</description>
+      <description>G1是面向全堆的垃圾收集器，不再需要其他新生代收集器的配合工作。 G1开创了面向局部收集的设计思路和基于Region的内存布局形式。 支持 类型卸</description>
     </item>
     
     <item>
