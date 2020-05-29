@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Spring Boot on 冰与火</title>
+    <link>https://hekrxe.github.io/docs/spring-boot/</link>
+    <description>Recent content in Spring Boot on 冰与火</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    
+	<atom:link href="https://hekrxe.github.io/docs/spring-boot/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>SpringApplication</title>
+      <link>https://hekrxe.github.io/docs/spring-boot/SpringApplication/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hekrxe.github.io/docs/spring-boot/SpringApplication/</guid>
+      <description>一切从一行代码看起 1 2 3 4 5 6 @SpringBootApplication public class Main{ public static void main(String[] args) { SpringApplication.run(Main.class, args); } } SpringBoot创建了一个 SpringApplication 对象，相关源码如下 1 2 3 4 5 6 7 public SpringApplication(ResourceLoader resourceLoader, Class&amp;lt;?&amp;gt;... primarySources) { // ... this.primarySources</description>
+    </item>
+    
+    <item>
+      <title>ApplicationListener</title>
+      <link>https://hekrxe.github.io/docs/spring-boot/ApplicationListener/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hekrxe.github.io/docs/spring-boot/ApplicationListener/</guid>
+      <description>接上篇，先看看在SpringBoot启动的时候通过SPI的方式实例化了哪些 ApplicationListener,有11个,但本篇只研究以下</description>
+    </item>
+    
+    <item>
+      <title>ApplicationContextInitializer</title>
+      <link>https://hekrxe.github.io/docs/spring-boot/ApplicationContextInitializer/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hekrxe.github.io/docs/spring-boot/ApplicationContextInitializer/</guid>
+      <description>接上篇</description>
+    </item>
+    
+  </channel>
+</rss>

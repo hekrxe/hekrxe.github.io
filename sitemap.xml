@@ -19,11 +19,19 @@
   </url>
   
   <url>
+    <loc>https://hekrxe.github.io/docs/spring-boot/SpringApplication/</loc>
+  </url>
+  
+  <url>
     <loc>https://hekrxe.github.io/docs/java/concurrent/volatile/</loc>
   </url>
   
   <url>
     <loc>https://hekrxe.github.io/docs/jvm/thread/without-toc/</loc>
+  </url>
+  
+  <url>
+    <loc>https://hekrxe.github.io/docs/spring-boot/ApplicationListener/</loc>
   </url>
   
   <url>
@@ -47,7 +55,15 @@
   </url>
   
   <url>
+    <loc>https://hekrxe.github.io/docs/spring-boot/ApplicationContextInitializer/</loc>
+  </url>
+  
+  <url>
     <loc>https://hekrxe.github.io/docs/jvm/gc/parallel_scavenge/</loc>
+  </url>
+  
+  <url>
+    <loc>https://hekrxe.github.io/docs/spring-boot/</loc>
   </url>
   
   <url>

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="接上篇，先看看在SpringBoot启动的时候通过SPI的方式实例化了哪些 ApplicationListener,有11个,但本篇只研究以下">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="ApplicationListener" />
+<meta property="og:description" content="接上篇，先看看在SpringBoot启动的时候通过SPI的方式实例化了哪些 ApplicationListener,有11个,但本篇只研究以下" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hekrxe.github.io/docs/spring-boot/ApplicationListener/" />
+
+<title>ApplicationListener | 冰与火</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.6df681b0bb21155cba49f6078e3559216772d8e03e780d240c73ea21817ed5e5.css" integrity="sha256-bfaBsLshFVy6SfYHjjVZIWdy2OA&#43;eA0kDHPqIYF&#43;1eU=">
+<script defer src="/zh-cn.search.min.142d6337df0c3aedb84150ff5baf78ca44a70da5f4b7945334c2ccef39e5be7e.js" integrity="sha256-FC1jN98MOu24QVD/W694ykSnDaX0t5RTNMLM7znlvn4="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><span>冰与火</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="" aria-label="" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  
+  
+  
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+    <a href="/docs/jvm/" class="collapsed ">JVM</a>
+  
+
+          
+  
+  
+  
+
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/java/" class="collapsed ">Java</a>
+  
+
+          
+  
+  
+  
+
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/spring-boot/" class="collapsed ">Spring Boot</a>
+  
+
+          
+  
+  
+  
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+    <a href="/docs/spring-boot/SpringApplication/" class="">SpringApplication</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/spring-boot/ApplicationListener/" class="active">ApplicationListener</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/spring-boot/ApplicationContextInitializer/" class="">ApplicationContextInitializer</a>
+  
+
+        </li>
+      
+    
+  </ul>
+  
+
+        </li>
+      
+    
+  </ul>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/" >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>ApplicationListener</strong>
+
+  <label for="toc-control">
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+  </label>
+</div>
+
+
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><p>接上篇，先看看在SpringBoot启动的时候通过SPI的方式实例化了哪些 <code>ApplicationListener</code>,有11个,但本篇只研究以下几种</p>
+<ul>
+<li>ConfigFileApplicationListener</li>
+<li>LoggingApplicationListener</li>
+<li>BackgroundPreinitializer</li>
+<li>DelegatingApplicationListener</li>
+</ul>
+<hr>
+<h2 id="configfileapplicationlistener">ConfigFileApplicationListener</h2>
+<p>其核心方法如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Java" data-lang="Java"><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onApplicationEvent</span><span class="o">(</span><span class="n">ApplicationEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">event</span> <span class="k">instanceof</span> <span class="n">ApplicationEnvironmentPreparedEvent</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">onApplicationEnvironmentPreparedEvent</span><span class="o">((</span><span class="n">ApplicationEnvironmentPreparedEvent</span><span class="o">)</span> <span class="n">event</span><span class="o">);</span>
+  <span class="o">}</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">event</span> <span class="k">instanceof</span> <span class="n">ApplicationPreparedEvent</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">onApplicationPreparedEvent</span><span class="o">(</span><span class="n">event</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>从代码可以看出 它只关心两种类型的事件： <code>ApplicationEnvironmentPreparedEvent</code> 和 <code>ApplicationPreparedEvent</code>.
+即在 <code>ConfigurableEnvironment</code> 对象创建出来后，和 应用程序加载完资源后被通知到。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Java" data-lang="Java"><span class="kd">private</span> <span class="kt">void</span> <span class="nf">onApplicationEnvironmentPreparedEvent</span><span class="o">(</span><span class="n">ApplicationEnvironmentPreparedEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">List</span><span class="o">&lt;</span><span class="n">EnvironmentPostProcessor</span><span class="o">&gt;</span> <span class="n">postProcessors</span> <span class="o">=</span> <span class="n">loadPostProcessors</span><span class="o">();</span>
+  <span class="n">postProcessors</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+  <span class="n">AnnotationAwareOrderComparator</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">postProcessors</span><span class="o">);</span>
+  <span class="k">for</span> <span class="o">(</span><span class="n">EnvironmentPostProcessor</span> <span class="n">postProcessor</span> <span class="o">:</span> <span class="n">postProcessors</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">postProcessor</span><span class="o">.</span><span class="na">postProcessEnvironment</span><span class="o">(</span><span class="n">event</span><span class="o">.</span><span class="na">getEnvironment</span><span class="o">(),</span> <span class="n">event</span><span class="o">.</span><span class="na">getSpringApplication</span><span class="o">());</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>onApplicationEnvironmentPreparedEvent 方法主要是回调 <code>EnvironmentPostProcessor</code>后置处理器。
+从代码实现上看，ConfigFileApplicationListener 也实现了 EnvironmentPostProcessor 接口，它主要是用来加载资源文件，加载到env，加载规则如下：</p>
+<ul>
+<li>将 参数 spring.config.additional-location 指定的资源加载进来, 譬如</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">java -jar demo.jar -spring.config.additional-location<span class="o">=</span>classpath:a.properties
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>加载 application.yml 或者 application.properties配置，如果参数 <code>spring.config.location</code> 被指定了，则从指定的位置加载文件，否则按以下规则查找并加载：classpath:/,classpath:/config/,file:./,file:./config/*/,file:./config/</li>
+</ul>
+<p>另外一个事件是<code>ApplicationPreparedEvent</code>,即应用程序已经加载完成了所有资源文件，但是ctx还没有refresh操作之前的事件，
+从源码上看，仅仅向ctx添加了一个  <code>PropertySourceOrderingPostProcessor</code> 处理器（BeanFactoryPostProcessor）。</p>
+<p>综上(具体细节还是打开源码文件一看便知，这里仅仅是梳理个脉络)
+<code>ConfigFileApplicationListener</code>主要作用就是读取应用的配置文件并添加到Environment里。</p>
+<p>扩展：其实我们真实的应用环境配置是比较复杂的，有些场景是在ctx refresh前就需要加载进来，则可以依据此来实现</p>
+<hr>
+<h2 id="loggingapplicationlistener">LoggingApplicationListener</h2>
+<p>有没有因为日志框架冲突而整天都在排包？有没有因为日志配置问题导致应用起不来？有没有日志打印不到指定的文件&hellip;
+业务量大、日志打印繁多、磁盘文件爆满？想在线上不重启的情况下临时修改日志级别来定位问题?等等类似一堆日志问题，相信头疼过的人不止我一个.</p>
+<p>以上，题外话&hellip;.</p>
+<p>该监听器主要用来配置 <code>LoggingSystem</code>,如果在环境变量中配置了 <code>logging.config</code>属性， 则使用它指定的文件来引导LoggingSystem的配置；否则使用默认的配置。</p>
+<p>也就是说，在SpringBoot中，无论是 log4j、log4j2 还是logback,都被抽象成了 <code>LoggingSystem</code>。</p>
+<p>这给开发人员提了个醒：我们的一些譬如动态日志修改就可以通过这个 LoggingSystem 对象来完成。具体实现可以看看 LoggingSystem的API。</p>
+<p>（实际上，SpringBoot endpoint的动态日志管理就是通过这个对象来实现的）。</p>
+<hr>
+<h2 id="backgroundpreinitializer">BackgroundPreinitializer</h2>
+<p>用于初始化一些在第一次加载比较耗时的一些组件，实现原理是：启动了一个后台线程来挨个进行初始化。</p>
+<p>预热，预初始化。</p>
+<p>主要初始化的组件有:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Java" data-lang="Java"><span class="kd">private</span> <span class="kt">void</span> <span class="nf">performPreinitialization</span><span class="o">()</span> <span class="o">{</span>
+  <span class="n">Thread</span> <span class="n">thread</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(</span><span class="k">new</span> <span class="n">Runnable</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+      <span class="n">runSafely</span><span class="o">(</span><span class="k">new</span> <span class="n">ConversionServiceInitializer</span><span class="o">());</span>
+      <span class="c1">// javax.validation
+</span><span class="c1"></span>      <span class="n">runSafely</span><span class="o">(</span><span class="k">new</span> <span class="n">ValidationInitializer</span><span class="o">());</span>
+      <span class="c1">// 消息转换器
+</span><span class="c1"></span>      <span class="n">runSafely</span><span class="o">(</span><span class="k">new</span> <span class="n">MessageConverterInitializer</span><span class="o">());</span>
+      <span class="c1">// json
+</span><span class="c1"></span>      <span class="n">runSafely</span><span class="o">(</span><span class="k">new</span> <span class="n">JacksonInitializer</span><span class="o">());</span>
+      <span class="c1">// 字符集
+</span><span class="c1"></span>      <span class="n">runSafely</span><span class="o">(</span><span class="k">new</span> <span class="n">CharsetInitializer</span><span class="o">());</span>
+      <span class="n">preinitializationComplete</span><span class="o">.</span><span class="na">countDown</span><span class="o">();</span>
+    <span class="o">}</span>
+  <span class="o">},</span> <span class="s">&#34;background-preinit&#34;</span><span class="o">);</span>
+  <span class="n">thread</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="delegatingapplicationlistener">DelegatingApplicationListener</h2>
+<p>处理用户自定义的 ApplicationListener</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Java" data-lang="Java"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">onApplicationEvent</span><span class="o">(</span><span class="n">ApplicationEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">event</span> <span class="k">instanceof</span> <span class="n">ApplicationEnvironmentPreparedEvent</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">ApplicationListener</span><span class="o">&lt;</span><span class="n">ApplicationEvent</span><span class="o">&gt;&gt;</span> <span class="n">delegates</span> <span class="o">=</span> <span class="n">getListeners</span><span class="o">(</span>
+        <span class="o">((</span><span class="n">ApplicationEnvironmentPreparedEvent</span><span class="o">)</span> <span class="n">event</span><span class="o">).</span><span class="na">getEnvironment</span><span class="o">());</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">delegates</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+      <span class="k">return</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">multicaster</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SimpleApplicationEventMulticaster</span><span class="o">();</span>
+    <span class="k">for</span> <span class="o">(</span><span class="n">ApplicationListener</span><span class="o">&lt;</span><span class="n">ApplicationEvent</span><span class="o">&gt;</span> <span class="n">listener</span> <span class="o">:</span> <span class="n">delegates</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">this</span><span class="o">.</span><span class="na">multicaster</span><span class="o">.</span><span class="na">addApplicationListener</span><span class="o">(</span><span class="n">listener</span><span class="o">);</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+  <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">multicaster</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">multicaster</span><span class="o">.</span><span class="na">multicastEvent</span><span class="o">(</span><span class="n">event</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>实例化环境变量参数<code>context.listener.classes</code>指定的ApplicationListener，并回调对应的ApplicationEvent事件。
+从源码可以看出，通过参数用户自定义的 ApplicationListener 只会收到 <code>ApplicationEnvironmentPreparedEvent</code> 事件以后发生的事件。
+从上文可以知道，这些事件包括但不限于：<code>ApplicationStartedEvent</code>,<code>ApplicationReadyEvent</code>&hellip;</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
