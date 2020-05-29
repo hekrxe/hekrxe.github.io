@@ -34,7 +34,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://hekrxe.github.io/docs/spring-boot/ApplicationContextInitializer/</guid>
-      <description>接上篇</description>
+      <description>ApplicationContextInitializer 的回调时间是：创建ApplicationContext后执行的。 跟上篇一样，本篇仅聊几个感兴趣的。其实仔细去看SpringBoot通过SP</description>
     </item>
     
   </channel>
