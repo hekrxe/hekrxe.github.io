@@ -37,5 +37,23 @@
       <description>ApplicationContextInitializer 的回调时间是：创建ApplicationContext后执行的。 跟上篇一样，本篇仅聊几个感兴趣的。其实仔细去看SpringBoot通过SP</description>
     </item>
     
+    <item>
+      <title>ApplicationContext</title>
+      <link>https://hekrxe.github.io/docs/spring-boot/ApplicationContext/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hekrxe.github.io/docs/spring-boot/ApplicationContext/</guid>
+      <description>ApplicationContext 是一个为应用程序提供配置的核心接口。提供： 通过 Bean factory 方法访问应用程序组件；（继承自 ListableBeanFactory) 以通用的方式提供加载资源文件的能力；（继承自 Resour</description>
+    </item>
+    
+    <item>
+      <title>BeanFactory</title>
+      <link>https://hekrxe.github.io/docs/spring-boot/BeanFactory/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hekrxe.github.io/docs/spring-boot/BeanFactory/</guid>
+      <description>BeanFactory</description>
+    </item>
+    
   </channel>
 </rss>
