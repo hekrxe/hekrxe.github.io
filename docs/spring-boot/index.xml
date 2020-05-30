@@ -47,12 +47,12 @@
     </item>
     
     <item>
-      <title>BeanFactory</title>
-      <link>https://hekrxe.github.io/docs/spring-boot/BeanFactory/</link>
+      <title>BeanFactoryPostProcessor</title>
+      <link>https://hekrxe.github.io/docs/spring-boot/BeanFactoryPostProcessor/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://hekrxe.github.io/docs/spring-boot/BeanFactory/</guid>
-      <description>BeanFactory</description>
+      <guid>https://hekrxe.github.io/docs/spring-boot/BeanFactoryPostProcessor/</guid>
+      <description>BeanFactoryPostProcessor 钩子(hook)允许自定义修改 ctx 的Bean的定义、适配等操作。 一个 BeanFactoryPostProcessor 也可以被允许以编程的方式向 ctx 注册一个bean. BeanDefinitionRegistryPostProcessor 是 BeanFactoryPostProcessor 的一个子接口。 其被</description>
     </item>
     
   </channel>
